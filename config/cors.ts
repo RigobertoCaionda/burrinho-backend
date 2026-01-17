@@ -44,7 +44,7 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: ['https://rigobertocaionda.it.ao'],
+  origin: ['https://rigobertocaionda.it.ao', 'https://www.rigobertocaionda.it.ao'],
 
   /*
   |--------------------------------------------------------------------------
