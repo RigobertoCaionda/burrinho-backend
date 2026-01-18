@@ -1,5 +1,14 @@
 {
   "commands": {
+    "testar:cron": {
+      "settings": {},
+      "commandPath": "./commands/TestarCron",
+      "commandName": "testar:cron",
+      "description": "Comando para testar cronjob localmente",
+      "args": [],
+      "aliases": [],
+      "flags": []
+    },
     "dump:rcfile": {
       "settings": {},
       "commandPath": "@adonisjs/core/build/commands/DumpRc",

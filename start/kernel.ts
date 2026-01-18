@@ -10,6 +10,7 @@
 */
 
 import Server from '@ioc:Adonis/Core/Server'
+import { CronManager } from '../app/Cron/cron'
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,6 @@ Server.middleware.register([
 */
 Server.middleware.registerNamed({
 })
+
+  const cron = new CronManager();
+  cron.startCronJobs();
