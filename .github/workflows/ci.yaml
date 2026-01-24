@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v4
 
         with:
-          node-version: 16.20
+          node-version: 20
           # cache npm cachea o node_modules, não precisa baixar o node_modules toda vez que a ci rodar, a não ser que o package.json mudou.
           cache: 'npm'
       
