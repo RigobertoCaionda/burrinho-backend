@@ -10,23 +10,23 @@ jobs:
     
     steps:
       - name: Cloning the Project
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       
       - name: Seting Up Node Environment
-      - uses: actions/setup-node@v4
+        uses: actions/setup-node@v4
 
         with:
-          node-version: 16.20
+          node-version: 20
           # cache npm cachea o node_modules, não precisa baixar o node_modules toda vez que a ci rodar, a não ser que o package.json mudou.
           cache: 'npm'
       
       - name: Installing dependencies
       # npm ci: melhor que npm install em ci
-      - run: npm ci
+        run: npm ci
 
       - name: Running Tests
-      - run: npm test
+        run: npm test
 
       # Apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
-      - run: npm run build
+        run: npm run build
