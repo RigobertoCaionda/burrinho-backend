@@ -34,6 +34,7 @@ jobs:
           MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
+          DB_CONNECTION: mysql
 
       # Apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
