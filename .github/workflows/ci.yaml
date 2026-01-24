@@ -36,18 +36,6 @@ jobs:
           MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
           DB_CONNECTION: mysql
 
-      - name: Running the Project
-        run: npm run dev
-        env:
-          APP_KEY: ${{ secrets.APP_KEY }}
-          DRIVE_DISK: ${{ secrets.DRIVE_DISK }}
-          NODE_ENV: development
-          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
-          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-          MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
-          DB_CONNECTION: mysql
-
       # Apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
         run: node ace build --ignore-ts-errors
