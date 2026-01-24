@@ -38,6 +38,8 @@ jobs:
 
       - name: Running the Project
         run: npm run dev
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
 
       # Apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
