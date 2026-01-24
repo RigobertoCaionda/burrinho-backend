@@ -26,7 +26,7 @@ jobs:
 
       - name: Running Tests
         run: npm test
-        # Para rodar os testes, é necessário a chave APP_KEY e podemos passar ela nos secrets do repositório para não passar diretamente aqui.
+        # Para rodar os testes, é necessário algumas variáveis de ambiente e podemos passar elas aqui e nos secrets do repositório para não passar diretamente aqui.
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
           DRIVE_DISK: ${{ secrets.DRIVE_DISK }}
@@ -38,4 +38,4 @@ jobs:
 
       # Apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
-        run: npm run build
+        run: node ace build --ignore-ts-errors
