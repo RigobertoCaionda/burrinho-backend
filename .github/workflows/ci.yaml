@@ -29,6 +29,7 @@ jobs:
         # Para rodar os testes, é necessário a chave APP_KEY e podemos passar ela nos secrets do repositório para não passar diretamente aqui.
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
+          DRIVE_DISK: ${{ secrets.DRIVE_DISK }}
 
       # Apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
