@@ -36,6 +36,9 @@ jobs:
           MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
           DB_CONNECTION: mysql
 
+      - name: Running the Project
+        run: npm run dev
+
       # Apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
         run: node ace build --ignore-ts-errors
