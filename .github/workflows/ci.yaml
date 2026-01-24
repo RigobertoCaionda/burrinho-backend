@@ -43,6 +43,7 @@ jobs:
           DRIVE_DISK: ${{ secrets.DRIVE_DISK }}
           NODE_ENV: development
           MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
 
       # Apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
