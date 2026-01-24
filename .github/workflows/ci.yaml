@@ -40,6 +40,7 @@ jobs:
         run: npm run dev
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
+          DRIVE_DISK: ${{ secrets.DRIVE_DISK }}
 
       # Apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
