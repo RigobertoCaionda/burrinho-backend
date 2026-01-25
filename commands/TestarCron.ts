@@ -5,6 +5,6 @@ export default class TestarCron extends BaseCommand {
   public static description = 'Comando para testar cronjob localmente'
 
   public async run() {
-    console.log('✅ Cron executado às:', new Date().toISOString())
+    console.log('✅ Cronjob executado às:', new Date().toISOString())
   }
 }
