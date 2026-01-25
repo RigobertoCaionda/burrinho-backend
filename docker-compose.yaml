@@ -1,0 +1,70 @@
+services:
+
+  burrinho-backend-app:
+    image: rigobertocaionda/burrinho-backend:latest  # usar imagem pronta do Docker Hub
+    container_name: burrinho-backend-app
+    restart: always
+
+    depends_on:
+      mysql4:
+        condition: service_healthy
+     
+    networks:
+      - backend
+
+    ports:
+      - "3333:3333"
+    
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3333
+      APP_KEY: ${APP_KEY} # colocar no arquivo .env ou secrets do seu servidor
+      DRIVE_DISK: local
+      DB_CONNECTION: mysql
+      MYSQL_HOST: mysql4
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: qwerty
+      MYSQL_DB_NAME: burrinho
+
+  mysql4:
+    container_name: "mysql4"
+
+    image: mysql:8.2
+  
+    healthcheck:
+      #test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pqwerty"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pqwerty"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+
+    restart: always
+    
+    command: --default-authentication-plugin=mysql_native_password
+
+    environment:
+
+      MYSQL_ROOT_PASSWORD: qwerty
+
+      MYSQL_DATABASE: burrinho
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      #- $HOME/Docker/data/mysql:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+
+    networks:
+      - backend
+
+
+networks:
+
+  backend:
+
+volumes:
+  mysql_data:

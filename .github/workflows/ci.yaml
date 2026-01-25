@@ -36,6 +36,19 @@ jobs:
           MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
           DB_CONNECTION: mysql
 
-      # Apenas uma validação para ver se o nosso projeto builda em produção
+      # Daqui para baixo é apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
-        run: node ace build --ignore-ts-errors
+        run: node ace build --production --ignore-ts-errors
+      
+      - name: Set QEMU
+        uses: docker/setup-qemu-action@v1
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      
+      - name: Build and Push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          tags: rigobertocaionda/burrinho-backend-app:latest
