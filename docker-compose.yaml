@@ -1,8 +1,10 @@
 services:
 
   burrinho-backend-app:
-    image: rigobertocaionda/burrinho-backend:latest  # usar imagem pronta do Docker Hub
-    container_name: burrinho-backend-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rigobertocaionda/burrinho-backend:latest
     restart: always
 
     depends_on:
