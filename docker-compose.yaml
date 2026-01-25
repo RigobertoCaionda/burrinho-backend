@@ -30,6 +30,14 @@ services:
       MYSQL_PASSWORD: qwerty
       MYSQL_DB_NAME: burrinho
 
+      MAIL_MAILER: smtp
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: 587
+      SMTP_USERNAME: rigobertocaionda98@gmail.com
+      SMTP_PASSWORD: drwa gqux kldl loav
+      SMTP_FROM_ADDRESS: rigobertocaionda98@gmail.com
+      SMTP_FROM_NAME: "Burrinho Game"
+
   mysql4:
     container_name: "mysql4"
 
