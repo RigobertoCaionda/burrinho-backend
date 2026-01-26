@@ -4,3 +4,6 @@ npm-debug.log
 .env
 tmp
 logs
+.gitignore
+Dockerfile*
+README.md
