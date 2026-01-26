@@ -45,8 +45,7 @@ services:
     image: mysql:8.2
   
     healthcheck:
-      # Posso usar assim como CMD SHELL ou do jeito que está em dockerfile.dev
-      test: CMD-SHELL mysqladmin ping -h 127.0.0.1 -uroot -p"${MYSQL_PASSWORD}"
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_PASSWORD}"]
       interval: 10s
       retries: 5
       start_period: 10s
