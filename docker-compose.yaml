@@ -28,8 +28,8 @@ services:
       MYSQL_HOST: mysql4
       MYSQL_PORT: 3306
       MYSQL_USER: root
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD_FOR_DOCKER}
-      MYSQL_DB_NAME: burrinho
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DB_NAME: ${MYSQL_DB_NAME}
 
       MAIL_MAILER: smtp
       SMTP_HOST: smtp.gmail.com
@@ -57,7 +57,7 @@ services:
 
     environment:
 
-      MYSQL_ROOT_PASSWORD: qwerty
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
 
       MYSQL_DATABASE: burrinho
 
