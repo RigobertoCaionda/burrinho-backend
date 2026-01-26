@@ -1,11 +1,11 @@
 services:
 
+  # burrinho-backend é o nome do serviço no docker compose, enquanto que container_name é o nome real do container quando ele estiver up.
   burrinho-backend-app:
     build:
       context: .
-      dockerfile: Dockerfile
-    image: rigobertocaionda/burrinho-backend:v1.0.0
-    restart: always
+      dockerfile: Dockerfile.dev
+    container_name: burrinho-dev
 
     depends_on:
       mysql4:
@@ -17,11 +17,16 @@ services:
     ports:
       - "3333:3333"
     
+    volumes:
+    # Permite que as alterações feitas no código reflitam imediatamente no container
+    - .:/app
+    # Meio que faz um cache do node_modules do host no container. Se no host fizerem um npm install, não reflete aqui, será necessário um novo build da imagem para refletir
+    - /app/node_modules
+    
     environment:
       NODE_ENV: ${NODE_ENV}
       HOST: ${HOST}
       PORT: ${PORT}
-      # As variáveis com ${} estão saindo do .env
       APP_KEY: ${APP_KEY}
       DRIVE_DISK: ${DRIVE_DISK}
       DB_CONNECTION: ${DB_CONNECTION}
@@ -45,8 +50,7 @@ services:
     image: mysql:8.2
   
     healthcheck:
-      # Posso usar assim como CMD SHELL ou do jeito que está em dockerfile.dev
-      test: CMD-SHELL mysqladmin ping -h 127.0.0.1 -uroot -p"${MYSQL_PASSWORD}"
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_PASSWORD}"]
       interval: 10s
       retries: 5
       start_period: 10s
@@ -62,9 +66,8 @@ services:
 
       MYSQL_DATABASE: ${MYSQL_DB_NAME}
 
-    # Não é recomendado expôr a porta do mysql em produção
-    # ports:
-    #   - "3306:3306"
+    ports:
+      - "3306:3306"
 
     volumes:
       - mysql_data:/var/lib/mysql

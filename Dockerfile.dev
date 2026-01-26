@@ -1,4 +1,7 @@
-FROM node:18-alpine
+# Definindo um argumento
+ARG NODE_VERSION=21.1.0
+
+FROM node:${NODE_VERSION}
 
 LABEL maintener="Rigoberto Caionda"
 LABEL email="rigobertocaionda98@gmail.com"
