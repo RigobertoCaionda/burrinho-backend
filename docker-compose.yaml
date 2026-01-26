@@ -21,20 +21,21 @@ services:
       NODE_ENV: production
       HOST: 0.0.0.0
       PORT: 3333
-      APP_KEY: ${APP_KEY} # colocar no arquivo .env ou secrets do seu servidor
+      # As variáveis com ${} estão saindo do .env
+      APP_KEY: ${APP_KEY}
       DRIVE_DISK: local
       DB_CONNECTION: mysql
       MYSQL_HOST: mysql4
       MYSQL_PORT: 3306
       MYSQL_USER: root
-      MYSQL_PASSWORD: qwerty
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD_FOR_DOCKER}
       MYSQL_DB_NAME: burrinho
 
       MAIL_MAILER: smtp
       SMTP_HOST: smtp.gmail.com
       SMTP_PORT: 587
       SMTP_USERNAME: rigobertocaionda98@gmail.com
-      SMTP_PASSWORD: drwa gqux kldl loav
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
       SMTP_FROM_ADDRESS: rigobertocaionda98@gmail.com
       SMTP_FROM_NAME: "Burrinho Game"
 
@@ -44,7 +45,6 @@ services:
     image: mysql:8.2
   
     healthcheck:
-      #test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pqwerty"]
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pqwerty"]
       interval: 10s
       retries: 5
@@ -61,8 +61,9 @@ services:
 
       MYSQL_DATABASE: burrinho
 
-    ports:
-      - "3306:3306"
+    # Não é recomendado expôr a porta do mysql em produção
+    # ports:
+    #   - "3306:3306"
 
     volumes:
       #- $HOME/Docker/data/mysql:/var/lib/mysql
@@ -73,7 +74,6 @@ services:
 
 
 networks:
-
   backend:
 
 volumes:
