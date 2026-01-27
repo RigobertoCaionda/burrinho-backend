@@ -4,13 +4,18 @@ on:
     branches:
       - develop
 
+  push:
+    branches:
+      - develop
+
 jobs:
+  # check-application é o ci
   check-application:
     runs-on: ubuntu-latest
     
     steps:
       - name: Cloning the Project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       
       - name: Seting Up Node Environment
         uses: actions/setup-node@v4
@@ -36,10 +41,11 @@ jobs:
           MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
           DB_CONNECTION: mysql
 
-      # Daqui para baixo é apenas uma validação para ver se o nosso projeto builda em produção
+      # Aqui é apenas uma validação para ver se o nosso projeto builda em produção
       - name: Building the Project
         run: node ace build --production --ignore-ts-errors
       
+      # Daqui para baixo é configuração do docker e buildar o projeto para ver se vai buildar em produção
       - name: Set QEMU
         uses: docker/setup-qemu-action@v1
       
@@ -52,3 +58,33 @@ jobs:
         with:
           push: false
           tags: rigobertocaionda/burrinho-backend-app:latest
+  
+
+  # Aqui começa o processo de cd
+  cd:
+    needs: check-application
+    runs-on: ubuntu-latest
+
+     # CD não roda em pull_request, apenas roda em merge/push
+    if: github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Deploy na VPS (build local)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          # O script vai entrar no código com o cd ${{ secrets.VPS_PATH }}, vai puxar o código da develop, vai fazer build da imagem docker e vai reiniciar os servidores
+          script: |
+            cd ${{ secrets.VPS_PATH }}
+
+            echo "📥 Atualizando código"
+            git pull origin develop
+
+            echo "🐳 Buildando imagem Docker"
+            docker compose build
+
+            echo "🚀 Reiniciando containers"
+            docker compose down
+            docker compose up -d
