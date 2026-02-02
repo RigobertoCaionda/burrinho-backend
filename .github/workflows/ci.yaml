@@ -61,30 +61,30 @@ jobs:
   
 
   # Aqui começa o processo de cd
-  cd:
-    needs: check-application
-    runs-on: ubuntu-latest
+  # cd:
+  #   needs: check-application
+  #   runs-on: ubuntu-latest
 
-     # CD não roda em pull_request, apenas roda em merge/push
-    if: github.ref == 'refs/heads/develop'
+  #    # CD não roda em pull_request, apenas roda em merge/push
+  #   if: github.ref == 'refs/heads/develop'
 
-    steps:
-      - name: Deploy na VPS (build local)
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          password: ${{ secrets.VPS_PASSWORD }}
-          # O script vai entrar no código com o cd ${{ secrets.VPS_PATH }}, vai puxar o código da develop, vai fazer build da imagem docker e vai reiniciar os servidores
-          script: |
-            cd ${{ secrets.VPS_PATH }}
+  #   steps:
+  #     - name: Deploy na VPS (build local)
+  #       uses: appleboy/ssh-action@v1.0.3
+  #       with:
+  #         host: ${{ secrets.VPS_HOST }}
+  #         username: ${{ secrets.VPS_USER }}
+  #         password: ${{ secrets.VPS_PASSWORD }}
+  #         # O script vai entrar no código com o cd ${{ secrets.VPS_PATH }}, vai puxar o código da develop, vai fazer build da imagem docker e vai reiniciar os servidores
+  #         script: |
+  #           cd ${{ secrets.VPS_PATH }}
 
-            echo "📥 Atualizando código"
-            git pull origin develop
+  #           echo "📥 Atualizando código"
+  #           git pull origin develop
 
-            echo "🐳 Buildando imagem Docker"
-            docker compose build
+  #           echo "🐳 Buildando imagem Docker"
+  #           docker compose build
 
-            echo "🚀 Reiniciando containers"
-            docker compose down
-            docker compose up -d
+  #           echo "🚀 Reiniciando containers"
+  #           docker compose down
+  #           docker compose up -d
