@@ -24,7 +24,7 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 Route.get('/test', async () => {
-  return { body: 'Testtando ci v7' }
+  return { body: 'Testtando ci v8' }
 })
 
 
